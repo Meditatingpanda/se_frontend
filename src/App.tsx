@@ -36,7 +36,7 @@ function App() {
         <Card
           sx={{
             height: "fit-content",
-            width: 500,
+            width: 400,
             marginLeft: 10,
             display: "flex",
             flexDirection: "column",
@@ -95,8 +95,7 @@ function App() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            filter: "drop-shadow(10px 0px 10px black)",
-
+            filter: "drop-shadow(0px 0px 6px black)",
             p: 1,
           }}
         >
