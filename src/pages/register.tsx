@@ -1,11 +1,12 @@
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
-import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import { isLoginRegister } from "../state/auth";
 
 function Register() {
+  const setNavbar = isLoginRegister((state: any) => state.setState);
+  setNavbar(false);
   return (
     <div className="Register">
-      <Navbar />
       <Box
         sx={{
           minHeight: "calc(100vh - 64px)",

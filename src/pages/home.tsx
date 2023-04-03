@@ -9,17 +9,36 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Navbar from "../components/Navbar";
+
 import { useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Dayjs } from "dayjs";
+import { fetchTrains } from "../api/axiosInstances";
+import { useTrainStore } from "../state/trainStore";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const [classes, setClasses] = useState<string>("");
+  const [classes, setClasses] = useState<string>("General");
+  const [from, setFrom] = useState<string>("");
+  const [to, setTo] = useState<string>("");
+  const [date, setDate] = useState<Dayjs | null>(null);
+  const trainStore: any = useTrainStore();
+  const navigate = useNavigate();
+  const handleSubmit = async () => {
+    // format date to DD/MM/YYYY
+    const formattedDate = date?.format("DD/MM/YYYY");
+    const trains = await fetchTrains({ from, to, formattedDate });
+    trainStore.setTrains(trains.data);
+    trainStore.setFrom(from);
+    trainStore.setTo(to);
+    navigate("/enquiry");
+    console.log(trains);
+  };
   return (
     <div className="Home">
-      <Navbar />
+      {/* <Navbar /> */}
       <Box
         sx={{
           minHeight: "calc(100vh - 64px)",
@@ -58,18 +77,31 @@ function Home() {
           >
             <TextField
               label="From"
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
               variant="outlined"
               sx={{
                 width: "75%",
               }}
             />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker label="Date" format="DD/MM/YYYY" />
+              <DatePicker
+                label="Date"
+                format="DD/MM/YYYY"
+                value={date}
+                onChange={(val) => setDate(val)}
+              />
             </LocalizationProvider>
           </Box>
 
           <Box sx={{ width: "100%" }}>
-            <TextField label="To" variant="outlined" fullWidth />
+            <TextField
+              label="To"
+              variant="outlined"
+              fullWidth
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+            />
           </Box>
 
           <FormControl fullWidth>
@@ -87,7 +119,7 @@ function Home() {
             </Select>
           </FormControl>
 
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" fullWidth onClick={handleSubmit}>
             Search
           </Button>
         </Card>

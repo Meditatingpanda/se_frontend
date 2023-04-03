@@ -1,11 +1,14 @@
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
-import Navbar from "../components/Navbar";
+
 import LoginIcon from "@mui/icons-material/Login";
 import { Link } from "react-router-dom";
+import { isLoginRegister } from "../state/auth";
 function Login() {
+ const setNavbar=isLoginRegister((state:any)=>state.setState)
+ setNavbar(false)
   return (
     <div className="Login">
-      <Navbar />
+      {/* <Navbar /> */}
       <Box
         sx={{
           minHeight: "calc(100vh - 64px)",

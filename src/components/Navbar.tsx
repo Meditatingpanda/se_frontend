@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
 import TrainIcon from "@mui/icons-material/Train";
+import { isLoginRegister } from "../state/auth";
 
 const pages = [
   {
@@ -37,7 +38,7 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const state: any = isLoginRegister();
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -61,17 +62,20 @@ function Navbar() {
             IRCTC 2.0
           </Typography>
           {/* Other links */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.label}
-                href={page.href}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page.label}
-              </Button>
-            ))}
-          </Box>
+          {state.isLoggingIn && (
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page.label}
+                  href={page.href}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.label}
+                </Button>
+              ))}
+            </Box>
+          )}
+          <Box sx={{ flexGrow: 1 }} />
           {/* Profile Avatar with options */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

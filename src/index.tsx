@@ -1,36 +1,50 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Enquiry from "./pages/enquiry";
 import Payment from "./pages/payment";
+import Navbar from "./components/Navbar";
+
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 const router = createBrowserRouter([
+  // create a nested route with navbar and home
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/enquiry",
-    element: <Enquiry />,
-  },
-  {
-    path: "/payment",
-    element: <Payment />,
+    element: (
+      <>
+        <Navbar />
+        <Outlet />
+      </>
+    ),
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/enquiry",
+        element: <Enquiry />,
+      },
+      {
+        path: "/payment",
+        element: <Payment />,
+      },
+    ],
   },
 ]);
 
