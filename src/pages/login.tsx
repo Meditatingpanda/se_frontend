@@ -4,8 +4,8 @@ import LoginIcon from "@mui/icons-material/Login";
 import { Link } from "react-router-dom";
 import { isLoginRegister } from "../state/auth";
 function Login() {
- const setNavbar=isLoginRegister((state:any)=>state.setState)
- setNavbar(false)
+  const setNavbar = isLoginRegister((state: any) => state.setState);
+  setNavbar(false);
   return (
     <div className="Login">
       {/* <Navbar /> */}
@@ -34,7 +34,15 @@ function Login() {
             gap: 4,
           }}
         >
-          <Typography variant="h4" fontWeight={400}>
+          <Typography
+            variant="h6"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+            fontWeight={400}
+          >
             Login <LoginIcon />
           </Typography>
           <Box

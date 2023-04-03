@@ -3,12 +3,11 @@ import React from "react";
 import TrainIcon from "@mui/icons-material/Train";
 import { TrainProps } from "../types/trainProps";
 const TrainCard = (props: TrainProps) => {
-  console.log(props, "train card");
   return (
     <Card
       elevation={3}
       sx={{
-        width: "fit-content",
+        width: "80%",
         margin: "auto",
         mt: 3,
       }}
@@ -36,7 +35,7 @@ const TrainCard = (props: TrainProps) => {
             From {props.from_stn_code}
           </Typography>
           <Typography variant="subtitle2" fontWeight={400}>
-            Departure Time {props.to_time}
+            Departure Time {props.from_time}
           </Typography>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
@@ -49,20 +48,21 @@ const TrainCard = (props: TrainProps) => {
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           <Typography variant="h6" fontWeight={400}>
-            Duration {props.travel_time}
+            Duration {props.travel_time}hr
           </Typography>
           <Typography variant="subtitle2" fontWeight={400}>
             Distance 250km
           </Typography>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          <Typography variant="h6" fontWeight={400}>
-            Classes
+          <Typography variant="h6" fontWeight={100}>
+            Classes General
           </Typography>
           <Typography variant="subtitle2" fontWeight={400}>
-            Fare
+            Fare ₹{parseInt(props.travel_time) * 33.3}
           </Typography>
         </Box>
+        <Box sx={{ flexGrow: 1 }} />
         <Button variant="contained">Book</Button>
       </Box>
     </Card>

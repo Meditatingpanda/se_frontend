@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Card,
+  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
@@ -9,7 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
+import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -18,7 +19,8 @@ import { Dayjs } from "dayjs";
 import { fetchTrains } from "../api/axiosInstances";
 import { useTrainStore } from "../state/trainStore";
 import { useNavigate } from "react-router-dom";
-
+import useToast from "../hooks/useToast";
+import bg_cover from "../assets/img.jpg";
 function Home() {
   const [classes, setClasses] = useState<string>("General");
   const [from, setFrom] = useState<string>("");
@@ -26,24 +28,30 @@ function Home() {
   const [date, setDate] = useState<Dayjs | null>(null);
   const trainStore: any = useTrainStore();
   const navigate = useNavigate();
+  const { notify, ToastContainer } = useToast();
+  const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async () => {
     // format date to DD/MM/YYYY
+    setLoading(true);
     const formattedDate = date?.format("DD/MM/YYYY");
     const trains = await fetchTrains({ from, to, formattedDate });
+    setLoading(false);
     trainStore.setTrains(trains.data);
     trainStore.setFrom(from);
     trainStore.setTo(to);
+    trainStore.setDate(formattedDate);
+    notify("Search Complete", "success");
     navigate("/enquiry");
     console.log(trains);
   };
   return (
     <div className="Home">
       {/* <Navbar /> */}
+      <ToastContainer />
       <Box
         sx={{
           minHeight: "calc(100vh - 64px)",
-          backgroundImage:
-            "url(https://www.newsclick.in/sites/default/files/2019-06/ir_0.PNG)",
+          backgroundImage: `url(${bg_cover})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -55,7 +63,7 @@ function Home() {
         <Card
           sx={{
             height: "fit-content",
-            width: 400,
+            width: 350,
             marginLeft: 10,
             display: "flex",
             flexDirection: "column",
@@ -64,8 +72,16 @@ function Home() {
             gap: 4,
           }}
         >
-          <Typography variant="h4" fontWeight={400}>
-            Book Ticket
+          <Typography
+            variant="h6"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+            fontWeight={400}
+          >
+            Search Trains <SearchIcon />
           </Typography>
           <Box
             sx={{
@@ -120,7 +136,16 @@ function Home() {
           </FormControl>
 
           <Button variant="contained" fullWidth onClick={handleSubmit}>
-            Search
+            {loading ? (
+              <CircularProgress
+                size={30}
+                sx={{
+                  color: "white",
+                }}
+              />
+            ) : (
+              "Search"
+            )}
           </Button>
         </Card>
         <Box

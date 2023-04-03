@@ -1,7 +1,7 @@
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { isLoginRegister } from "../state/auth";
-
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 function Register() {
   const setNavbar = isLoginRegister((state: any) => state.setState);
   setNavbar(false);
@@ -32,8 +32,16 @@ function Register() {
             gap: 4,
           }}
         >
-          <Typography variant="h4" fontWeight={400}>
-            Register Here!
+          <Typography
+            variant="h6"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+            fontWeight={400}
+          >
+            Register Here! <VpnKeyIcon />
           </Typography>
           <Box
             component="form"
@@ -44,7 +52,12 @@ function Register() {
               width: "100%",
             }}
           >
-            <TextField label="Name" type="text" variant="outlined" required />
+            <TextField
+              label="Username"
+              type="text"
+              variant="outlined"
+              required
+            />
             <TextField label="Email" type="email" variant="outlined" required />
             <TextField label="Phone" type="tel" variant="outlined" required />
             <TextField

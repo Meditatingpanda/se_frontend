@@ -5,13 +5,14 @@ import React from "react";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import TrainCard from "../components/TrainCard";
 import { useTrainStore } from "../state/trainStore";
-
+import dayjs from "dayjs";
 const Enquiry = () => {
   const trainStore: any = useTrainStore();
   const trains = trainStore.trains;
+  console.log("date", trainStore.date);
   return (
     <Stack>
-      <Card elevation={3}>
+      <Card elevation={1}>
         <Box
           component="form"
           sx={{
@@ -40,7 +41,11 @@ const Enquiry = () => {
             value={trainStore.to}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker label="Date" format="DD/MM/YYYY" />
+            <DatePicker
+              label="Date"
+              format="DD/MM/YYYY"
+              defaultValue={dayjs(trainStore.date)}
+            />
           </LocalizationProvider>
 
           <Button variant="contained" type="submit">
@@ -50,8 +55,8 @@ const Enquiry = () => {
       </Card>
 
       {/* Train Card */}
-      {trains?.map((train: any) => (
-        <TrainCard {...train.train_base} />
+      {trains?.map((train: any, id: number) => (
+        <TrainCard key={id} {...train.train_base} />
       ))}
     </Stack>
   );

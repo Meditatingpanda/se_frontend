@@ -25,3 +25,36 @@ export const fetchTrains = async ({
   });
   return response.data;
 };
+
+export const loginUser = async (email: string, password: string) => {
+  try {
+    const response = await axiosInstance.post("/login", {
+      email,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const registerUser = async (
+  username: string,
+  email: string,
+  phone: string,
+  password: string
+) => {
+  try {
+    const response = await axiosInstance.post("/register", {
+      email,
+      password,
+      username,
+      phone,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
