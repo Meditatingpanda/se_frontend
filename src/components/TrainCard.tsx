@@ -3,7 +3,9 @@ import React from "react";
 import TrainIcon from "@mui/icons-material/Train";
 import { TrainProps } from "../types/trainProps";
 import { Link } from "react-router-dom";
+import { authStore } from "../state/auth";
 const TrainCard = (props: TrainProps) => {
+  const authState: any = authStore();
   return (
     <Card
       elevation={3}
@@ -64,7 +66,7 @@ const TrainCard = (props: TrainProps) => {
           </Typography>
         </Box>
         <Box sx={{ flexGrow: 1 }} />
-        <Link to={`/payment/${props.train_no}`}>
+        <Link to={authState.auth ? `/payment/${props.train_no}` : "/"}>
           <Button variant="contained">Book</Button>
         </Link>
       </Box>
