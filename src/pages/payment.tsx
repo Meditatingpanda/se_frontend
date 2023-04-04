@@ -7,21 +7,30 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useTrainStore } from "../state/trainStore";
-import { TrainProps } from "../types/trainProps";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
+import { useTicketStore } from "../state/ticket";
 
 const Payment = () => {
   const params = useParams();
   const { id } = params;
-  const [gender, setGender] = React.useState<string | null>(null);
+  const [passengers, setPassengers] = React.useState({
+    name: "",
+    age: "",
+    gender: "",
+  });
+  const handleChangePassenger = (e: any) => {
+    const { name, value } = e.target;
+    setPassengers({ ...passengers, [name]: value });
+
+    console.log(passengers);
+  };
   const [paymentDetails, setPaymentDetails] = React.useState({
     cvc: "",
     expiry: "",
@@ -43,6 +52,26 @@ const Payment = () => {
   const trainStore: any = useTrainStore();
   const trains = trainStore.trains;
   const train = trains.find((train: any) => train.train_base.train_no === id);
+  const ticketStore: any = useTicketStore();
+  const handleSubmit = () => {
+    const ticket = {
+      train: {
+        id: id,
+        name: train?.train_base.train_name,
+        from: train?.train_base.from_stn_name,
+        to: train?.train_base.dstn_stn_name,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+        price: 100,
+      },
+      passenger: {
+        name: passengers.name,
+        age: passengers.age,
+        gender: passengers.gender,
+      },
+    };
+    ticketStore.setTicket(ticket);
+  };
 
   return (
     <div>
@@ -100,20 +129,37 @@ const Payment = () => {
           margin: "auto",
         }}
       >
-        <TextField label="Name" variant="outlined" sx={{ m: 1 }} type="text" />
-        <TextField label="Age" variant="outlined" sx={{ m: 1 }} type="number" />
+        <TextField
+          label="Name"
+          name="name"
+          value={passengers.name}
+          onChange={(e) => handleChangePassenger(e)}
+          variant="outlined"
+          sx={{ m: 1 }}
+          type="text"
+        />
+        <TextField
+          label="Age"
+          name="age"
+          value={passengers.age}
+          onChange={(e) => handleChangePassenger(e)}
+          variant="outlined"
+          sx={{ m: 1 }}
+          type="number"
+        />
         <FormControl>
           <InputLabel id="demo-simple-select-label">Gender</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={gender}
+            value={passengers.gender}
+            name="gender"
             label="Gender"
             sx={{
               width: "10rem",
               height: "3.5rem",
             }}
-            onChange={(e) => setGender(e.target.value)}
+            onChange={(e) => handleChangePassenger(e)}
           >
             <MenuItem value={"Male"}>Male</MenuItem>
             <MenuItem value={"Female"}>Female</MenuItem>
@@ -206,12 +252,15 @@ const Payment = () => {
           />
         </Box>
       </Box>
-      <Box sx={{
+      <Box
+        sx={{
           display: "flex",
           justifyContent: "center",
-
-      }}>
-        <Button variant="contained">Book Your Ticket</Button>
+        }}
+      >
+        <Button variant="contained" onClick={handleSubmit}>
+          Book Your Ticket
+        </Button>
       </Box>
     </div>
   );
