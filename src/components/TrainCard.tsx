@@ -2,6 +2,7 @@ import { Box, Button, Card, Typography } from "@mui/material";
 import React from "react";
 import TrainIcon from "@mui/icons-material/Train";
 import { TrainProps } from "../types/trainProps";
+import { Link } from "react-router-dom";
 const TrainCard = (props: TrainProps) => {
   return (
     <Card
@@ -63,7 +64,9 @@ const TrainCard = (props: TrainProps) => {
           </Typography>
         </Box>
         <Box sx={{ flexGrow: 1 }} />
-        <Button variant="contained">Book</Button>
+        <Link to={`/payment/${props.train_no}`}>
+          <Button variant="contained">Book</Button>
+        </Link>
       </Box>
     </Card>
   );

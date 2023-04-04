@@ -12,7 +12,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
 import TrainIcon from "@mui/icons-material/Train";
-import { authStore, isLoginRegister } from "../state/auth";
+import { authStore } from "../state/auth";
+import { fetchUser } from "../api/axiosInstances";
 
 const pages = [
   {
@@ -30,7 +31,7 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-
+   const [user,setUser]=React.useState<any>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -45,8 +46,14 @@ function Navbar() {
     handleCloseUserMenu();
     localStorage.removeItem("token");
   };
-
-  const state: any = isLoginRegister();
+  React.useEffect(() => {
+    const fetch = async () => {
+      const data = await fetchUser();
+      setUser(data);
+      console.log("user", data);
+    };
+    fetch();
+  }, []);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -89,7 +96,7 @@ function Navbar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Gyana" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={user?.name} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu

@@ -10,7 +10,7 @@ import {
 import LoginIcon from "@mui/icons-material/Login";
 import { Link, useNavigate } from "react-router-dom";
 import { authStore, isLoginRegister } from "../state/auth";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { loginUser } from "../api/axiosInstances";
 import useToast from "../hooks/useToast";
 function Login() {

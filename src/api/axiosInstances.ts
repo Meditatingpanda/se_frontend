@@ -4,6 +4,7 @@ export const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/api",
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });
 
@@ -53,6 +54,16 @@ export const registerUser = async (
       name,
       phone,
     });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const fetchUser = async () => {
+  try {
+    const response = await axiosInstance.get("/user");
     return response.data;
   } catch (error) {
     console.log(error);
