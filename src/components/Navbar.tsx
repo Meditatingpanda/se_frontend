@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import TrainIcon from "@mui/icons-material/Train";
 import { authStore } from "../state/auth";
 import { fetchUser } from "../api/axiosInstances";
+import { useNavigate } from "react-router-dom";
 
 const pages = [
   {
@@ -39,12 +40,13 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const navigate = useNavigate();
   const authState: any = authStore();
   const handleLogout = () => {
     authState.setAuth();
     handleCloseUserMenu();
     localStorage.removeItem("token");
+    navigate("/");
   };
   React.useEffect(() => {
     const fetch = async () => {

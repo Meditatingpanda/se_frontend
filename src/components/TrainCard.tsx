@@ -66,7 +66,7 @@ const TrainCard = (props: TrainProps) => {
           </Typography>
         </Box>
         <Box sx={{ flexGrow: 1 }} />
-        <Link to={authState.auth ? `/payment/${props.train_no}` : "/"}>
+        <Link to={authState.auth ? `/payment/${props.train_no}` : "/login"}>
           <Button variant="contained">Book</Button>
         </Link>
       </Box>
