@@ -21,6 +21,7 @@ import { useTrainStore } from "../state/trainStore";
 import { useNavigate } from "react-router-dom";
 import useToast from "../hooks/useToast";
 import bg_cover from "../assets/img.jpg";
+
 function Home() {
   const [classes, setClasses] = useState<string>("General");
   const [from, setFrom] = useState<string>("");
@@ -44,6 +45,7 @@ function Home() {
     navigate("/enquiry");
     console.log(trains);
   };
+
   return (
     <div className="Home">
       {/* <Navbar /> */}

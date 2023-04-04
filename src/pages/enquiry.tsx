@@ -1,4 +1,4 @@
-import { Box, Button, Card, Stack, TextField } from "@mui/material";
+import { Box, Card, Stack, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import React from "react";
@@ -6,7 +6,7 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import TrainCard from "../components/TrainCard";
 import { useTrainStore } from "../state/trainStore";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
+
 const Enquiry = () => {
   const trainStore: any = useTrainStore();
   const trains = trainStore.trains;
@@ -31,12 +31,14 @@ const Enquiry = () => {
             type="text"
             variant="outlined"
             required
+            disabled
             value={trainStore.from}
           />
           <SwapHorizIcon />
           <TextField
             label="To"
             type="text"
+            disabled
             variant="outlined"
             required
             value={trainStore.to}
@@ -44,22 +46,21 @@ const Enquiry = () => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Date"
+              readOnly
               format="DD/MM/YYYY"
               defaultValue={dayjs(trainStore.date)}
             />
           </LocalizationProvider>
 
-          <Button variant="contained" type="submit">
+          {/* <Button variant="contained" type="submit">
             Modify Search
-          </Button>
+          </Button> */}
         </Box>
       </Card>
 
       {/* Train Card */}
       {trains?.map((train: any, id: number) => (
-        
-          <TrainCard key={id} {...train.train_base} />
-     
+        <TrainCard key={id} {...train.train_base} />
       ))}
     </Stack>
   );
