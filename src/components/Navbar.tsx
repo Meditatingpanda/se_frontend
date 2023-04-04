@@ -31,7 +31,7 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-   const [user,setUser]=React.useState<any>(null);
+  const [user, setUser] = React.useState<any>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -96,7 +96,10 @@ function Navbar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={user?.name} src="/static/images/avatar/2.jpg" />
+                  <Avatar
+                    alt={user?.name}
+                    src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7f83306c-9659-420d-885e-b827164fedba/d8k5f0w-e9af3bef-e695-424c-9c00-b5ea1d538a70.jpg/v1/fill/w_800,h_800,q_75,strp/avatar_of_harry_potter__by_pollyaug00_d8k5f0w-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODAwIiwicGF0aCI6IlwvZlwvN2Y4MzMwNmMtOTY1OS00MjBkLTg4NWUtYjgyNzE2NGZlZGJhXC9kOGs1ZjB3LWU5YWYzYmVmLWU2OTUtNDI0Yy05YzAwLWI1ZWExZDUzOGE3MC5qcGciLCJ3aWR0aCI6Ijw9ODAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.U6J9TZKL0KYWkkqaVkTlE8bDbpyFoIQ60dYQmtEP7Hg"
+                  />
                 </IconButton>
               </Tooltip>
               <Menu

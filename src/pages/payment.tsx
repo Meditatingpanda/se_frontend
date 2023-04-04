@@ -154,6 +154,11 @@ const Payment = () => {
           </Typography>
         </Card>
       ))}
+      {passengerData.length !== 0 && (
+        <Typography variant="h6" fontWeight={200} sx={{ textAlign: "center" }}>
+          Total Amount: {passengerData.length * 2.3*40*parseInt(train?.train_base.travel_time)}
+        </Typography>
+      )}
 
       <Box
         component={"form"}
