@@ -1,4 +1,11 @@
-import { Box, Button, Card, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CircularProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { isLoginRegister } from "../state/auth";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
@@ -18,6 +25,7 @@ function Register() {
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const [loading, setLoading] = useState(false);
   const { notify, ToastContainer } = useToast();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -27,12 +35,15 @@ function Register() {
       return;
     }
 
+    setLoading(true);
     const data = await registerUser(name, email, phone, password);
-
-    if (data.message && data.status !== 400) {
+    console.log("register", data?.response?.status);
+    setLoading(false);
+    if ( data?.response?.status) {
       notify(data.message, "error");
       return;
-    } else if (data.message) {
+    } 
+    if (data.message) {
       notify(data.message, "success");
       setForm({
         name: "",
@@ -138,7 +149,16 @@ function Register() {
               required
             />
             <Button variant="contained" sx={{ width: "100%" }} type="submit">
-              Register
+              {loading ? (
+                <CircularProgress
+                  size={20}
+                  sx={{
+                    color: "white",
+                  }}
+                />
+              ) : (
+                "Register"
+              )}
             </Button>
           </Box>
           <Typography variant="body2" fontWeight={400}>
