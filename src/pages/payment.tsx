@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTrainStore } from "../state/trainStore";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
@@ -28,8 +28,6 @@ const Payment = () => {
   const handleChangePassenger = (e: any) => {
     const { name, value } = e.target;
     setPassengers({ ...passengers, [name]: value });
-
-    console.log(passengers);
   };
   const [paymentDetails, setPaymentDetails] = React.useState({
     cvc: "",
@@ -53,6 +51,7 @@ const Payment = () => {
   const trains = trainStore.trains;
   const train = trains.find((train: any) => train.train_base.train_no === id);
   const ticketStore: any = useTicketStore();
+  const navigate = useNavigate();
   const handleSubmit = () => {
     const ticket = {
       train: {
@@ -71,6 +70,8 @@ const Payment = () => {
       },
     };
     ticketStore.setTicket(ticket);
+    console.log("ticket", ticket);
+    navigate("/gen-ticket");
   };
 
   return (

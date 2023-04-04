@@ -3371,6 +3371,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-pdf@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "@types/react-pdf@npm:6.2.0"
+  dependencies:
+    "@types/react": "*"
+    pdfjs-dist: ^2.16.105
+  checksum: 0a84bf4e80aebe948180a37818734967a00329656c8c6a299e0eebd07f336fbf209612c80aa2fa5bf741d1f1cd8780a3634120e9aeeeb65d1ddaaee319c4c4a5
+  languageName: node
+  linkType: hard
+
 "@types/react-transition-group@npm:^4.4.5":
   version: 4.4.5
   resolution: "@types/react-transition-group@npm:4.4.5"
@@ -4840,7 +4850,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.4.2, chokidar@npm:^3.5.3":
+"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.3":
   version: 3.5.3
   resolution: "chokidar@npm:3.5.3"
   dependencies:
@@ -5868,6 +5878,13 @@ __metadata:
   dependencies:
     domelementtype: ^2.2.0
   checksum: 4c665ceed016e1911bf7d1dadc09dc888090b64dee7851cccd2fcf5442747ec39c647bb1cb8c8919f8bbdd0f0c625a6bafeeed4b2d656bbecdbae893f43ffaaa
+  languageName: node
+  linkType: hard
+
+"dommatrix@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "dommatrix@npm:1.0.3"
+  checksum: 8ac727c1a14cf8de30a5b49a3bd6b2622a661b391fe1ac54e855eaa14a857ed86d63492150b5f70f912acc24fa3acc31d750259c47e9b5801de237624b0a319f
   languageName: node
   linkType: hard
 
@@ -7452,7 +7469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html2canvas@npm:^1.0.0-rc.5":
+"html2canvas@npm:^1.0.0-rc.5, html2canvas@npm:^1.4.1":
   version: 1.4.1
   resolution: "html2canvas@npm:1.4.1"
   dependencies:
@@ -7651,6 +7668,13 @@ __metadata:
   version: 9.0.21
   resolution: "immer@npm:9.0.21"
   checksum: 70e3c274165995352f6936695f0ef4723c52c92c92dd0e9afdfe008175af39fa28e76aafb3a2ca9d57d1fb8f796efc4dd1e1cc36f18d33fa5b74f3dfb0375432
+  languageName: node
+  linkType: hard
+
+"immutable@npm:^4.0.0":
+  version: 4.3.0
+  resolution: "immutable@npm:4.3.0"
+  checksum: bbd7ea99e2752e053323543d6ff1cc71a4b4614fa6121f321ca766db2bd2092f3f1e0a90784c5431350b7344a4f792fa002eac227062d59b9377b6c09063b58b
   languageName: node
   linkType: hard
 
@@ -8982,7 +9006,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jspdf@npm:^2.3.1":
+"jspdf@npm:^2.3.1, jspdf@npm:^2.5.1":
   version: 2.5.1
   resolution: "jspdf@npm:2.5.1"
   dependencies:
@@ -10129,6 +10153,21 @@ __metadata:
     globalthis: ^1.0.2
     qj: ~2.0.0
   checksum: 993806f55456207bb3b2c3134f88bbf8e02468cdc4521c3a4e2392b5643d68ad374878d6698e0fd0a05232195cfaf6666b6bb8c6fde6d00a148012cfc94238d1
+  languageName: node
+  linkType: hard
+
+"pdfjs-dist@npm:^2.16.105":
+  version: 2.16.105
+  resolution: "pdfjs-dist@npm:2.16.105"
+  dependencies:
+    dommatrix: ^1.0.3
+    web-streams-polyfill: ^3.2.1
+  peerDependencies:
+    worker-loader: ^3.0.8
+  peerDependenciesMeta:
+    worker-loader:
+      optional: true
+  checksum: 16ad2fa0ff8404fefd1a3e83f92ef1a594fcc4d3ff65512f801365c8f06d300d4a38023a867994f0b964a8e146773e6dcc9988c7c1a791917eb6371d5bd72863
   languageName: node
   linkType: hard
 
@@ -11931,6 +11970,19 @@ resolve@^2.0.0-next.4:
   languageName: node
   linkType: hard
 
+"sass@npm:^1.60.0":
+  version: 1.60.0
+  resolution: "sass@npm:1.60.0"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: 06e163c37af466ec194cf2ed8dab616372afeb19322d356947d48ea664fc38398ae77c4d91bea9cb0ace954ce289d5518d0f8555ecc49f6bf2539a8ef52fc580
+  languageName: node
+  linkType: hard
+
 "sax@npm:~1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
@@ -12018,8 +12070,11 @@ resolve@^2.0.0-next.4:
     "@types/react": ^18.0.0
     "@types/react-credit-cards": ^0.8.1
     "@types/react-dom": ^18.0.0
+    "@types/react-pdf": ^6.2.0
     axios: ^1.3.4
     dayjs: ^1.11.7
+    html2canvas: ^1.4.1
+    jspdf: ^2.5.1
     react: ^18.2.0
     react-credit-cards: ^0.8.3
     react-dom: ^18.2.0
@@ -12027,6 +12082,7 @@ resolve@^2.0.0-next.4:
     react-scripts: 5.0.1
     react-to-pdf: ^0.0.14
     react-toastify: ^9.1.2
+    sass: ^1.60.0
     typescript: ^4.4.2
     web-vitals: ^2.1.0
     zustand: ^4.3.7
@@ -12264,7 +12320,7 @@ resolve@^2.0.0-next.4:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^1.0.1, source-map-js@npm:^1.0.2":
+"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.1, source-map-js@npm:^1.0.2":
   version: 1.0.2
   resolution: "source-map-js@npm:1.0.2"
   checksum: c049a7fc4deb9a7e9b481ae3d424cc793cb4845daa690bc5a05d428bf41bf231ced49b4cf0c9e77f9d42fdb3d20d6187619fc586605f5eabe995a316da8d377c
@@ -13410,6 +13466,13 @@ typescript@^4.4.2:
   dependencies:
     minimalistic-assert: ^1.0.0
   checksum: 2abc306c96930b757972a1c4650eb6b25b5d99f24088714957f88629e137db569368c5de0e57986c89ea70db2f1df9bba11a87cb6d0c8694b6f53a0159fab3bf
+  languageName: node
+  linkType: hard
+
+"web-streams-polyfill@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "web-streams-polyfill@npm:3.2.1"
+  checksum: b119c78574b6d65935e35098c2afdcd752b84268e18746606af149e3c424e15621b6f1ff0b42b2676dc012fc4f0d313f964b41a4b5031e525faa03997457da02
   languageName: node
   linkType: hard
 

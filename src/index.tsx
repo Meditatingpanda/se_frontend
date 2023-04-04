@@ -7,7 +7,7 @@ import Register from "./pages/register";
 import Enquiry from "./pages/enquiry";
 import Payment from "./pages/payment";
 import Navbar from "./components/Navbar";
-
+import Ticket from "./pages/Ticket";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -43,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/payment/:id",
         element: <Payment />,
+      },
+      {
+        path: "/gen-ticket",
+        element: <Ticket />,
       },
     ],
   },
