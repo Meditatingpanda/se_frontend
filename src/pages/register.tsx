@@ -23,7 +23,7 @@ function Register() {
         <Card
           sx={{
             height: "fit-content",
-            width: 400,
+            width: 300,
             marginLeft: 10,
             display: "flex",
             flexDirection: "column",
