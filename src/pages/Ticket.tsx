@@ -61,10 +61,10 @@ const Ticket = () => {
             <div className="fineprint">
               <p>
                 Boarding begins 30 minutes before departure. Snacks available
-                for purchase from The Honeydukes Express.
+                for purchase from IRCTC 2.0 e-catering.
               </p>
               <p>
-                This ticket is Non-refundable • Hogwarts Express Railway
+                This ticket is Non-refundable • VSSUT Railway
                 Authority
               </p>
             </div>
@@ -123,7 +123,6 @@ const Ticket = () => {
             html2canvas(input as HTMLElement).then((canvas) => {
               const imgData = canvas.toDataURL("image/png", 1.0);
               const pdf = new jsPDF("l", "mm", "a4");
-              
 
               pdf.addImage(imgData, "JPEG", 10, 10, 280, 150);
               pdf.save("download.pdf");

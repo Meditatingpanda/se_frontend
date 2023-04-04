@@ -16,6 +16,7 @@ import { useTrainStore } from "../state/trainStore";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import { useTicketStore } from "../state/ticket";
+import { saveTicket } from "../api/axiosInstances";
 
 const Payment = () => {
   const params = useParams();
@@ -25,6 +26,11 @@ const Payment = () => {
     age: "",
     gender: "",
   });
+  const [passengerData, setPassengerData] = React.useState<any>([]);
+  const handleAddPassenger = () => {
+    setPassengerData([...passengerData, passengers]);
+  };
+
   const handleChangePassenger = (e: any) => {
     const { name, value } = e.target;
     setPassengers({ ...passengers, [name]: value });
@@ -52,7 +58,7 @@ const Payment = () => {
   const train = trains.find((train: any) => train.train_base.train_no === id);
   const ticketStore: any = useTicketStore();
   const navigate = useNavigate();
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const ticket = {
       train: {
         id: id,
@@ -69,6 +75,9 @@ const Payment = () => {
         gender: passengers.gender,
       },
     };
+    // save tickets
+    const data = await saveTicket(ticket);
+    console.log("saved ticket", data);
     ticketStore.setTicket(ticket);
     console.log("ticket", ticket);
     navigate("/gen-ticket");
@@ -121,6 +130,31 @@ const Payment = () => {
       {/* make a card to take passenger input */}
 
       {/* Passenger Details Card */}
+      {passengerData?.map((passenger: any) => (
+        <Card
+          elevation={3}
+          sx={{
+            width: "80%",
+            margin: "auto",
+            mt: 3,
+            mb: 2,
+            p: 1,
+            display: "flex",
+            gap: 2,
+          }}
+        >
+          <Typography variant="subtitle1" fontWeight={200}>
+            {passenger?.name}
+          </Typography>
+          <Typography variant="subtitle1" fontWeight={200}>
+            {passenger?.age}
+          </Typography>
+          <Typography variant="subtitle1" fontWeight={200}>
+            {passenger?.gender}
+          </Typography>
+        </Card>
+      ))}
+
       <Box
         component={"form"}
         sx={{
@@ -168,6 +202,7 @@ const Payment = () => {
           </Select>
         </FormControl>
         <IconButton
+          onClick={handleAddPassenger}
           sx={{
             width: "2rem",
             height: "2rem",

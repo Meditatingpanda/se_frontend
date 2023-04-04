@@ -70,3 +70,15 @@ export const fetchUser = async () => {
     return error;
   }
 };
+
+export const saveTicket = async (ticket:any) => {
+  try {
+    const response = await axiosInstance.post("/save_ticket", {
+      ...ticket,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
