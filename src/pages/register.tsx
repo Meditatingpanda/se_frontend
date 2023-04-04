@@ -2,11 +2,55 @@ import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { isLoginRegister } from "../state/auth";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import { useState } from "react";
+import useToast from "../hooks/useToast";
+import { registerUser } from "../api/axiosInstances";
 function Register() {
   const setNavbar = isLoginRegister((state: any) => state.setState);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e: any) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const { notify, ToastContainer } = useToast();
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const { name, email, phone, password, confirmPassword } = form;
+    if (password !== confirmPassword) {
+      notify("Passwords do not match", "error");
+      return;
+    }
+
+    const data = await registerUser(name, email, phone, password);
+
+    if (data.message && data.status !== 400) {
+      notify(data.message, "error");
+      return;
+    } else if (data.message) {
+      notify(data.message, "success");
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+      });
+      return;
+    }
+
+    console.log(data);
+  };
+
   setNavbar(false);
   return (
     <div className="Register">
+      <ToastContainer />
       <Box
         sx={{
           minHeight: "calc(100vh - 64px)",
@@ -44,6 +88,7 @@ function Register() {
             Register Here! <VpnKeyIcon />
           </Typography>
           <Box
+            onSubmit={(e) => handleSubmit(e)}
             component="form"
             sx={{
               display: "flex",
@@ -53,22 +98,42 @@ function Register() {
             }}
           >
             <TextField
-              label="Username"
+              label="Name"
               type="text"
+              name="name"
+              onChange={(e) => handleChange(e)}
               variant="outlined"
               required
             />
-            <TextField label="Email" type="email" variant="outlined" required />
-            <TextField label="Phone" type="tel" variant="outlined" required />
+            <TextField
+              label="Email"
+              name="email"
+              type="email"
+              onChange={(e) => handleChange(e)}
+              variant="outlined"
+              required
+            />
+            <TextField
+              label="Phone"
+              type="tel"
+              variant="outlined"
+              required
+              name="phone"
+              onChange={(e) => handleChange(e)}
+            />
             <TextField
               label="Password"
               type="password"
+              name="password"
+              onChange={(e) => handleChange(e)}
               variant="outlined"
               required
             />
             <TextField
               label="Confirm Password"
               type="password"
+              onChange={(e) => handleChange(e)}
+              name="confirmPassword"
               variant="outlined"
               required
             />

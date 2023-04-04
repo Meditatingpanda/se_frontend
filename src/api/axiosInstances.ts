@@ -32,7 +32,7 @@ export const loginUser = async (email: string, password: string) => {
       email,
       password,
     });
-   
+
     return response.data;
   } catch (error) {
     console.log(error);
@@ -41,7 +41,7 @@ export const loginUser = async (email: string, password: string) => {
 };
 
 export const registerUser = async (
-  username: string,
+  name: string,
   email: string,
   phone: string,
   password: string
@@ -50,7 +50,7 @@ export const registerUser = async (
     const response = await axiosInstance.post("/register", {
       email,
       password,
-      username,
+      name,
       phone,
     });
     return response.data;
