@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { isLoginRegister } from "../state/auth";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useState } from "react";
@@ -25,7 +25,7 @@ function Register() {
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  const navigate=useNavigate();
+  //const navigate=useNavigate();
   const [loading, setLoading] = useState(false);
   const { notify, ToastContainer } = useToast();
   const handleSubmit = async (e: any) => {
