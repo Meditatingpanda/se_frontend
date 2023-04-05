@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { isLoginRegister } from "../state/auth";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useState } from "react";
@@ -25,6 +25,7 @@ function Register() {
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const navigate=useNavigate();
   const [loading, setLoading] = useState(false);
   const { notify, ToastContainer } = useToast();
   const handleSubmit = async (e: any) => {
@@ -44,7 +45,7 @@ function Register() {
       return;
     } 
     if (data.message) {
-      notify(data.message, "success");
+      notify(data.message+" Plz Login to Continue", "success");
       setForm({
         name: "",
         email: "",
@@ -52,6 +53,7 @@ function Register() {
         password: "",
         confirmPassword: "",
       });
+     // navigate("/login");
       return;
     }
 
@@ -112,6 +114,7 @@ function Register() {
               label="Name"
               type="text"
               name="name"
+              value={form.name}
               onChange={(e) => handleChange(e)}
               variant="outlined"
               required
@@ -120,6 +123,7 @@ function Register() {
               label="Email"
               name="email"
               type="email"
+              value={form.email}
               onChange={(e) => handleChange(e)}
               variant="outlined"
               required
@@ -129,6 +133,7 @@ function Register() {
               type="tel"
               variant="outlined"
               required
+              value={form.phone}
               name="phone"
               onChange={(e) => handleChange(e)}
             />
@@ -136,6 +141,7 @@ function Register() {
               label="Password"
               type="password"
               name="password"
+              value={form.password}
               onChange={(e) => handleChange(e)}
               variant="outlined"
               required
@@ -143,6 +149,7 @@ function Register() {
             <TextField
               label="Confirm Password"
               type="password"
+              value={form.confirmPassword}
               onChange={(e) => handleChange(e)}
               name="confirmPassword"
               variant="outlined"
